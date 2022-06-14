@@ -1,6 +1,6 @@
 # til
 
-Today I have learnt about...
+A collection of some write-ups on small things I learn day to day across a variety of languages and technologies.
 
 ## Categories
 
@@ -9,4 +9,5 @@ Today I have learnt about...
 - Test Doubles
 - Clean Architecture
 
-2. shell
+2. bash
+- Strict mode
