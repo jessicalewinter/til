@@ -15,6 +15,8 @@ $O(n^2)$
 ### Logarithmic Time
 $O(log(n))$
 
+An algorithm that can repeatedly drop half of the required comparisons will have logarithmic time complexity. 
+
 ### Quasilinear Time
 $O(nlog(n))$
 
