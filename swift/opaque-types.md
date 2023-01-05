@@ -22,3 +22,4 @@ By using opaque types we were able to remove the need to expose code publically,
 
 ## References
 - [What are opaque types](https://www.avanderlee.com/swift/some-opaque-types/)
+- [Opaque Types](https://docs.swift.org/swift-book/LanguageGuide/OpaqueTypes.html)
