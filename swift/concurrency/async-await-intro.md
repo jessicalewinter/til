@@ -6,5 +6,9 @@
 - Other work can happen during a suspension
 - Once an awaited async call completes, execution resumes after the await
 
+## AsyncSequence
+
+
+
 ## References
 - [Meet async/await in Swift](https://developer.apple.com/videos/play/wwdc2021/10132/)
