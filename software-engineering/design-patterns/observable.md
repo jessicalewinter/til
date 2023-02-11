@@ -25,11 +25,3 @@ observable.map { x in ...}
           .subscribe(onNext: { x in ...}) // onNext closue is the observer in this case
 ```
 
-### Subject
-Contains any number of dependent observers
-Implements both the Observable and Observer Interfaces
-
-
-
-## References
-
