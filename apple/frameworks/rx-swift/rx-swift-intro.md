@@ -84,7 +84,9 @@ source.onNext("first") //emits data
 source.onNext("second")
 ```
 
-### Subscription
+### RxSwift vs RXCocoa
+- RxSwift is the implementation of the common Rx API
+- RxCocoa is RxSwift’s companion library holding all classes that specifically aid development for UIKit and Cocoa.
 
 
 ## References
