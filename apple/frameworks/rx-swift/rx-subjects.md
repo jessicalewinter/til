@@ -81,6 +81,32 @@ Subjects, once terminated, will re-emit its stop event to future subscribers.
 Starts with an initial value and replays it or the latest element to new subscribers.
 Sometimes you want to let new subscribers know what was the latest emitted element, even though that element was emitted before the subscription. 
 
+Since BehaviorSubject always emits the latest element, you can’t create one without providing an initial value. If you can’t provide an initial value at creation time, that probably means you need to use a PublishSubject instead.
+
+
+```swift
+    let subject = BehaviorSubject(value: "Initial value")
+    let disposeBag = DisposeBag()
+    
+    subject.subscribe {
+      print("1-", ($0.element ?? $0.error) ?? $0)
+    }.disposed(by: disposeBag)
+    
+    subject.onError(MyError.anError)
+    
+    subject.subscribe {
+      print("2-", ($0.element ?? $0.error) ?? $0)
+    }.disposed(by: disposeBag)
+    
+    subject.onNext("3333")
+
+    // Output 
+    // 1-Initial value
+    // 1-anError
+    // 2-anError
+```
+
+Behavior subjects are useful when you want to pre-populate a view with the most recent data.
 
 ### ReplaySubject
 Initialized with a buffer size and will maintain a buffer of elements up to that size and replay it to new subscribers.
