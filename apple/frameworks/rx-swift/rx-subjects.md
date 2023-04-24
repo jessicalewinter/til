@@ -110,6 +110,48 @@ Behavior subjects are useful when you want to pre-populate a view with the most 
 
 ### ReplaySubject
 Initialized with a buffer size and will maintain a buffer of elements up to that size and replay it to new subscribers.
+if you wanted to show more than the latest value, we could the ReplaySubject to do it.
+
+Replay subjects will temporarily cache, or buffer, the latest elements they emit, up to a specified size of your choosing. They will then replay that buffer to new subscribers.
+
+```swift
+let buffer = 2
+let subject = ReplaySubject<String>.create(bufferSize: buffer)
+let disposeBag = DisposeBag()
+
+subject.onNext("1")
+subject.onNext("2")
+subject.onNext("3")
+
+subject.subscribe {
+  print("1-", ($0.element ?? $0.error) ?? $0)
+}.disposed(by: disposeBag)
+
+subject.subscribe {
+  print("2-", ($0.element ?? $0.error) ?? $0)
+}.disposed(by: disposeBag)
+
+subject.onNext("4")
+
+subject.onError(MyError.anError)
+
+subject.subscribe {
+  print("3-", ($0.element ?? $0.error) ?? $0)
+}.disposed(by: disposeBag)
+
+// Output
+// 1- 2
+// 1- 3
+// 2- 2
+// 2- 3
+// 1- 4
+// 2- 4
+// 1- anError
+// 2- anError
+// 3- 3
+// 3- 4
+// 3- anError
+```
 
 ### AsyncSubject
 Emits **only** the *last* .next event in the sequence, and only when the subject receives a .completed event. 
@@ -117,10 +159,59 @@ Emits **only** the *last* .next event in the sequence, and only when the subject
 
 ### Relay
 These wrap their relative subjects, but only accept .next events. You cannot add a .completed or .error event onto relays at all, so they're great for non-terminating sequences.
+A relay wraps a subject while maintaining its replay behavior.
+
+Unlike other subjects you add a value onto a relay by using the accept(_:) method. In other words, you don’t use onNext(_:).
+
 
 #### PublishRelay
 
+A PublishRelay wraps a PublishSubject and a BehaviorRelay wraps a BehaviorSubject. What sets relays apart from their wrapped subjects is that they are guaranteed to never terminate.
+
+```swift
+import RxRelay
+
+let relay = PublishRelay<String>()
+let disposeBag = DisposeBag()
+
+relay.accept("First try")
+
+relay.subscribe(onNext: {
+  print($0)
+}).disposed(by: disposeBag)
+
+relay.accept("Second try")
+```
+
+> Note: Publish relays simply wrap a publish subject and work just like them, except the accept part and that they will not terminate. 
+
 
 ### BehaviorRelay
+Behavior relays also will not terminate with a `.completed` or `.error` event. Because it wraps a behavior subject, a behavior relay is created with an initial value, and it will replay its latest or initial value to new subscribers. i
+With behavior relay you can check for the current value without the need to subscribe to it.
+
+```swift
+import RxRelay
+
+let relay = BehaviorRelay<String>(value: "Inital value")
+let disposeBag = DisposeBag()
+
+relay.accept("New initial value")
+
+relay.subscribe(onNext: {
+  print("1-", $0)
+}).disposed(by: disposeBag)
+
+relay.accept("1")
+
+relay.subscribe(onNext: {
+  print("2-", $0)
+}).disposed(by: disposeBag)
+
+relay.accept("2")
+
+print("Relay current value is: ", relay.value)
+```
+
 
 
