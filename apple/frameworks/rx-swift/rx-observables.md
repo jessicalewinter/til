@@ -215,10 +215,31 @@ Single.create { single in
 } 
 ```
 
+This kind of trait is useful in situations such as saving a file, downloading a file, loading data from disk or basically any asynchronous operation that yields a value. 
+To better express your intention to consume a single element from a sequence and ensure if the sequence emits more than one element the subscription will error out. To achieve it, you can subscribe to any observable and use `.asSingle()` to convert it to a `Single`.
+
 #### Completable
 A Completable will only emit a .completed or .error event. It doesn't emit any values.
+This variation of Observable allows only for a single .completed or .error event to be emitted before the subscription is disposed of.
+You can convert an observable sequence to a completable by using the ignoreElements() operator, in which case all next events will be ignored, with only a completed or error event emitted, just as required for a Completable.
+
+```swift
+saveDocument()
+  .andThen(Observable.from(createMes))
+  .subscribe(onNext: { message in
+    message.display()
+  }, onError: {e in
+    alert(e.localizedDescription)
+  })
+```
+> Note: 
+The `andThen` operator allows you to chain more completables or observables upon a success event and subscribe for the final result. 
+
 
 #### Maybe
 Maybe is a merge of a Single and Completable. It can either emit a .success(value), .completed or .error. 
 
+Maybe is quite similar to Single with the only difference that the observable may not emit a value upon successful completion.
 
+
+Just as with Single, you can either create a Maybe directly by using `Maybe.create({ ... })` or by converting any observable sequence via `.asMaybe()`.
