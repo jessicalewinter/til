@@ -206,3 +206,8 @@ distinctUntilChanged only avoid duplicates that are in sequence, in the example 
 
 You can use the comparator on distinctUntilChanged to add your own comparation rules
 
+
+
+
+
+
