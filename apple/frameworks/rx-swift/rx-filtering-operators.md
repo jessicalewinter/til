@@ -207,7 +207,10 @@ distinctUntilChanged only avoid duplicates that are in sequence, in the example 
 You can use the comparator on distinctUntilChanged to add your own comparation rules
 
 
+### ignoreElements()
+If you want to ignore all emitted elements, this operator does exactly that: discards all elements of the source sequence and lets through only .completed or .error.
 
+This operator transform a generic observable sequence to a Completable by filtering out any .next elements
 
 
 
