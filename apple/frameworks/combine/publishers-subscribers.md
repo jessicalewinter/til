@@ -1,10 +1,17 @@
 # Publishers and Subscribers
+To create a basic publisher in Combine, you can transform any value type using the `.publisher`, that will convert this type to a publisher that emits elements when start its subscription
 
-## @Published property wrapper
-Combine's @Published is a publisher that's wrapped by a property wrapper. This gives it the $ prefixed property and other features that SwiftUI relies on to work.
-An @Published property is also not like an AnyPublisher at all. @Published always has Never as its failure type, AnyPublisher can have other failure cases.
+```swift
+let fibonacciArray = [1, 2, 3, 5, 8].publisher
+```
 
-@Published has a sense of state/ a current value which isn't the case for AnyPublisher. A CurrentValueSubject would come closest but that wouldn't work because @Published can be used as a binding which isn't possible for CurrentValueSubject. An important difference is that SwiftUI can assign new values to an @Published property directly (isLoggedIn = true would trigger a change here).
+The type of this publisher it is `Publishers.Sequence<[Int], Never>`
+
+Publishers is a enum that contains Combine's built-in publishers.
+Every publisher in Combine has an Output and a Failure.
+
+On our example, the subscribers of a sequence publisher will receive Int objects when subscring to it. This sequence publisher receives as a failure the Never type, this means it will never emit error events, only successfull events.
+
 
 
 ## References
