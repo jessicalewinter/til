@@ -9,7 +9,7 @@
 ### Code Completion
 - Xcode suggest the name of the struct to be the same name of the file
 - Xcode editor suggests the most used modifiers for a certain View
-- Color and image assets are now backed by Swift symbols, which means that they can noew be code completed.
+- Color and image assets are now backed by Swift symbols, which means that they can now be code completed.
 
 ### Strings Catalogs
 Strings catalogs pulls together your localizations into a single place so you can review and update your strings
@@ -76,4 +76,7 @@ SDK owners can now create a PrivacyInfo manifest
 - Testflight internal builds
 
 [Simplify distribution with Xcode and Xcode Cloud](https://developer.apple.com/videos/play/wwdc2023/10224)
+
+## References
+- [What’s new in Xcode 15](https://developer.apple.com/videos/play/wwdc2023/10165/)
 
