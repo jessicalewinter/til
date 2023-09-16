@@ -1,0 +1,9 @@
+# Understanding Crashes and Crash Logs
+
+What is a crash? 
+A crash is a sudden termination of your app when it attempts to do something that is not allowed. So what's not allowed? Well, sometimes it's impossible for the CPU to execute code, like divide numbers by zero.
+
+
+
+## References
+- [Understanding Crashes and Crash Logs](https://developer.apple.com/videos/play/wwdc2018/414/)
